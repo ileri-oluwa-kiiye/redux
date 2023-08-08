@@ -2,13 +2,15 @@ import { useFormik } from 'formik'
 import styled from 'styled-components'
 import basicSchema from '../../schemas'
 
-const onSubmit =(values, actions)=>{
+const onSubmit = async (values, actions)=>{
     console.log(values)
     console.log(actions)
+    await new Promise((resolve)=> {setTimeout(resolve, 1000)})
+    actions.resetForm()
 }
 
 const Basicform = () =>{
-    const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
+    const { values, errors, touched, isSubmitting, handleBlur, handleChange, handleSubmit } = useFormik({
         initialValues : {
             email: "",
             name: "",
@@ -64,7 +66,7 @@ const Basicform = () =>{
                     className={errors.password && touched.password? "input-error" : ''}
                 />
                 {errors.password && touched.password && <P className='error'>{errors.password}</P>}
-                <Button type='submit'>Submit</Button>
+                <Button disabled={isSubmitting} type='submit'>Submit</Button>
             </form>
         </div>
     )
@@ -109,7 +111,7 @@ const Button = styled.button`
     border: none;
     outline: none;
     color: #1a202c;
-    :hover{
+    :hover, :disabled{
         opacity: 0.8;
         transition: all 0.3s ease;
     }

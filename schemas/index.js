@@ -11,6 +11,7 @@ export const basicSchema = yup.object().shape({
       .required("Required"),
     name: yup
         .string()
+        .min(8)
         .required("Required"),
   });
 
