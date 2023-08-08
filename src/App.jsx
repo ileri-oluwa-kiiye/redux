@@ -1,35 +1,61 @@
+// import Practise from "./components/practise"
+import styled from "styled-components"
+import './index.css'
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Advancedform from './components/advancedForm'
+import Basicform from './components/basicform'
 
 function App() {
-  const [count, setCount] = useState(0)
 
+  const [view, setView] = useState("basic")
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <Wrapdiv className="App">
+      <Nav>
+        <H3
+          onClick={()=> setView('basic')}
+          style = {{color: view==='basic'? "white" :'#718096'}}
+        >
+          Basic
+        </H3>
+        <H3
+          onClick={()=> setView('advanced')}
+          style={{color: view ==='advanced'? 'white' : '#718096'}}
+        >
+          Advanced
+        </H3>
+      </Nav>
+      { view==='basic'? <Basicform /> : <Advancedform />}
+    </Wrapdiv>
   )
 }
+
+
+const Wrapdiv = styled.div`
+  max-width: max-content;
+  min-width: 40vw;
+  margin: auto;
+  padding: 4vw 10%;
+`
+
+const Nav = styled.nav`
+  display: flex;
+  justify-content: space-between;
+  max-width: 250px;
+  margin: auto;
+`
+
+const H3 = styled.h3`
+  /* colour: white; */
+  font-size: 30px;
+  margin: 40px;
+  margin-bottom: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  /* &:active{
+    color: white!important;
+  } */
+`
+
+
 
 export default App
